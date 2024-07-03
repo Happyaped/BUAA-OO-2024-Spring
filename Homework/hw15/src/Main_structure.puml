@@ -1,0 +1,333 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "Main",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1460393970 { 
+   	label=BorrowPlace
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   BorrowPlace1460393970[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BorrowPlace</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   borrowTable: HashMap&lt;LibraryBookId, Integer&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   markBorrowCount: HashMap&lt;LibraryBookId, Integer&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addBook(bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addBorrowCount(bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ finishTran()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getBorrowCount(bookId: LibraryBookId): int</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1534621073 { 
+   	label=Request
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Request1534621073[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Request</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   bookId: LibraryBookId [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   date: LocalDate [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   studentId: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1559191943 { 
+   	label=OrderPlace
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   OrderPlace1559191943[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OrderPlace</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   orderList: ArrayList&lt;Request&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   toBeOrderList: ArrayList&lt;Request&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addOrderList(today: LocalDate, studentId: String, bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addToBeOrderList(studentId: String, today: LocalDate, bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ checkCanBorrowBBook(studentId: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ checkCanBorrowCBook(studentId: String, bookId: LibraryBookId): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ checkCanRenew(bookId: LibraryBookId): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ checkHasReserved(studentId: String, bookId: LibraryBookId): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ finishTran(outRequest: ArrayList&lt;Request&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ pickBook(studentId: String, bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toBooKShelf(today: LocalDate): ArrayList&lt;Request&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1830861979 { 
+   	label=Library
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Library1830861979[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Library</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   bookShelf: HashMap&lt;LibraryBookId, Integer&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   borrowPlace: BorrowPlace [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   cornerPlace: Corner [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   orderPlace: OrderPlace [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   studentTable: HashMap&lt;String, Student&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addBookShelf(bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addInitBookShelf(libraryBookId: LibraryBookId, count: Integer)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ cornerBook2BookShelf(bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteBookShelf(bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getStudent(studentId: String): Student</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleBorrow(studentId: String, bookId: LibraryBookId, today: LocalDate): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleClose(today: LocalDate)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleCornerBorrow(studentId: String, bookId: LibraryBookId, today: LocalDate): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleDonate(studentId: String, bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleOpen(today: LocalDate)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleOrder(studentId: String, bookId: LibraryBookId, today: LocalDate): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handlePick(studentId: String, bookId: LibraryBookId, today: LocalDate): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleQuery(bookId: LibraryBookId): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleQueryCreditScore(studentId: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleRenew(studentId: String, bookId: LibraryBookId, today: LocalDate): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleReturn(studentId: String, bookId: LibraryBookId, today: LocalDate): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ moveBookShelf2OrderPlace(today: LocalDate, moveList: List&lt;LibraryMoveInfo&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ moveBorrowPlace2BookShelfAndCorner(moveList: List&lt;LibraryMoveInfo&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ moveOrderPlace2BooKShelf(today: LocalDate, moveList: List&lt;LibraryMoveInfo&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ openModifyCreditScore(today: LocalDate)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1837272779 { 
+   	label=ParserInput
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   ParserInput1837272779[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ParserInput</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   library: Library [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ borrowRequest(today: LocalDate, studentId: String, bookId: LibraryBookId, request: LibraryRequest)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ close(today: LocalDate)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ donateRequest(today: LocalDate, bookId: LibraryBookId, request: LibraryRequest, studentId: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ initLibrary()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ open(today: LocalDate)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ orderRequest(today: LocalDate, studentId: String, bookId: LibraryBookId, request: LibraryRequest)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ parserInputRequest()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ pickRequest(today: LocalDate, studentId: String, bookId: LibraryBookId, request: LibraryRequest)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ queryCreditScoreRequest(studentId: String, cmd: LibraryCommand)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ queryRequest(today: LocalDate, bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ renewRequest(today: LocalDate, studentId: String, bookId: LibraryBookId, request: LibraryRequest)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ returnRequest(today: LocalDate, studentId: String, bookId: LibraryBookId, cmd: LibraryCommand)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2024169077 { 
+   	label=Corner
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Corner2024169077[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Corner</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   cornerShelf: HashMap&lt;LibraryBookId, Integer&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   markDonate: HashMap&lt;LibraryBookId, String&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addCornerBooK(bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteCornerBook(bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getCornerBookCount(bookId: LibraryBookId): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDonatePersonId(bookId: LibraryBookId): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ markDonatePerson(studentId: String, bookId: LibraryBookId)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_214492645 { 
+   	label=Student
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Student214492645[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Student</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   backDate: HashMap&lt;LibraryBookId, LocalDate&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   books: HashMap&lt;LibraryBookId, Integer&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   creditScore: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   markCreditScore: HashMap&lt;LibraryBookId, Boolean&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addBackDate(bookId: LibraryBookId, today: LocalDate)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addBook(bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addCreditScore(num: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ canBorrowBBook(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ canBorrowBuBook(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ canBorrowCBook(bookId: LibraryBookId): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ canBorrowCuBook(bookId: LibraryBookId): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getBackDate(bookId: LibraryBookId): LocalDate</TD></TR>
+<TR><TD ALIGN="LEFT" >+ renewDate(bookId: LibraryBookId)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ returnBook(bookId: LibraryBookId)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2390489 { 
+   	label=Main
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Main2390489[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Main</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ main(args: String[])</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+Library1830861979 -> BorrowPlace1460393970[label="borrowPlace
+[0..1]"];
+Library1830861979 -> Corner2024169077[label="cornerPlace
+[0..1]"];
+Library1830861979 -> OrderPlace1559191943[label="orderPlace
+[0..1]"];
+Library1830861979 -> Student214492645[label="studentTable
+[0..*]"];
+OrderPlace1559191943 -> Request1534621073[label="orderList
+[0..*]"];
+OrderPlace1559191943 -> Request1534621073[label="toBeOrderList
+[0..*]"];
+ParserInput1837272779 -> Library1830861979[label="library
+[0..1]"];
+    
+}
+@enduml

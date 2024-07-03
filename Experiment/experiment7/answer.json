@@ -1,0 +1,19 @@
+{
+    "1": [
+        "-ask2checkOut(guestName:String,roomId:int):void",
+        "+checkOut(roomId:int):void",
+        "-workerName:String",
+        "Dispatcher",
+        "finishClean",
+        "isCleanOperation()"
+    ],
+    "2": [
+        "DIS_REC_CHECKIN_FAILED",
+        "replyCheckOut(request);",
+        "arrangeClean4CheckOut(request);",
+        "arrangeCleanOnly(Request request)",
+        "RoomState.OCCUPIED",
+        "RequestTag.CLE_DIS_CLEAN_CHECKOUT.equals(request.getRequestTag())"
+    ],
+    "3": " 高内聚和低耦合是软件工程中非常重要的设计原则。高内聚是指模块或类内部的功能联系紧密，各个功能或任务彼此相关并形成一个逻辑整体。这样设计的好处是模块内部的实现更加集中，便于维护和修改，同时也提高了模块的重用性。低耦合则是指模块之间相互独立，彼此之间的联系较少，信息交流有限。模块之间的耦合度越低，系统的灵活性和可维护性就会越高。当一个模块发生变化时，由于模块间耦合度低，其他模块的影响也会减小，降低了系统出错的可能性。在软件设计中，追求高内聚和低耦合能够帮助开发者设计出结构合理、易于维护和扩展的软件系统。这两个原则相辅相成，是设计优秀软件的重要基础。"
+}

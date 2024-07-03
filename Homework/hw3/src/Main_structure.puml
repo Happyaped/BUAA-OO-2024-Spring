@@ -1,0 +1,377 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "Main",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1349935098 { 
+   	label=Printer
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Printer1349935098[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Printer</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ finalPrint(value: ArrayList&lt;Standard&gt;): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1445582840 { 
+   	label=Function
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Function1445582840[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Function</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   funcExpr: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   funcName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   varNum: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   vars: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ InitFunction()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1911543745 { 
+   	label=Parser
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Parser1911543745[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Parser</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   lexer: Lexer [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ parseDerivation(): Derivation</TD></TR>
+<TR><TD ALIGN="LEFT" >+ parseExpr(): Expression</TD></TR>
+<TR><TD ALIGN="LEFT" >+ parseFactor(): Factor</TD></TR>
+<TR><TD ALIGN="LEFT" >+ parseTerm(): Term</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2390489 { 
+   	label=Main
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Main2390489[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Main</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ main(args: String[])</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_3127797 { 
+   	label=expr
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Calculation3127797[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Calculation</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ Add(list1: ArrayList&lt;Standard&gt;, list2: ArrayList&lt;Standard&gt;): ArrayList&lt;Standard&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Indexin(list: ArrayList&lt;Standard&gt;, index: int): ArrayList&lt;Standard&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Merge(list: ArrayList&lt;Standard&gt;, standard: Standard): ArrayList&lt;Standard&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Mul(list1: ArrayList&lt;Standard&gt;, list2: ArrayList&lt;Standard&gt;): ArrayList&lt;Standard&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ Sub(list1: ArrayList&lt;Standard&gt;, list2: ArrayList&lt;Standard&gt;): ArrayList&lt;Standard&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ checkMerge(list1: ArrayList&lt;Standard&gt;, list2: ArrayList&lt;Standard&gt;): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ checkStandard(standard1: Standard, standard2: Standard): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteDerivation(list: ArrayList&lt;Standard&gt;): ArrayList&lt;Standard&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Derivation3127797[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Derivation</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   expression: Expression [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   index: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   value: ArrayList&lt;Standard&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ calValue(): ArrayList&lt;Standard&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Exponent3127797[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Exponent</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   factor: Factor [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   index: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   value: ArrayList&lt;Standard&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ calValue(): ArrayList&lt;Standard&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Expression3127797[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Expression</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   index: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ops: ArrayList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   terms: ArrayList&lt;Term&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   value: ArrayList&lt;Standard&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addOps(op: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addTerms(term: Term)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ calValue(): ArrayList&lt;Standard&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Num3127797[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Num</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   index: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   num: BigInteger [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   value: ArrayList&lt;Standard&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ calValue(): ArrayList&lt;Standard&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Standard3127797[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Standard</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   coef: BigInteger [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   comindex: ArrayList&lt;Standard&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   index: BigInteger [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ mulcoef(num: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ reversecoef()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Term3127797[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Term</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   factors: ArrayList&lt;Factor&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   value: ArrayList&lt;Standard&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addFactors(factor: Factor)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ calValue(): ArrayList&lt;Standard&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Variable3127797[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Variable</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   index: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   value: ArrayList&lt;Standard&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ calValue(): ArrayList&lt;Standard&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_73315052 { 
+   	label=Lexer
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Lexer73315052[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Lexer</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   curtoken: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   function: HashMap&lt;String, Function&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   input: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   pos: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ deleteFunc(input: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ furtherinit(input: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ initOperate()</TD></TR>
+<TR><TD ALIGN="LEFT" >- isSignal(c: char): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ next()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ peek(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+Derivation3127797 -> Expression3127797[label="expression
+[0..1]"];
+Derivation3127797 -> Standard3127797[label="value
+[0..*]"];
+Exponent3127797 -> Calculation3127797[label="calValue() -> Indexin()"];
+Exponent3127797 -> Standard3127797[label="value
+[0..*]"];
+Expression3127797 -> Standard3127797[label="value
+[0..*]"];
+Expression3127797 -> Term3127797[label="terms
+[0..*]"];
+Lexer73315052 -> Function1445582840[label="function
+[0..*]"];
+Main2390489 -> Expression3127797[label="main() -> calValue()"];
+Main2390489 -> Function1445582840[label="main() -> InitFunction()"];
+Main2390489 -> Lexer73315052[label="main() -> initOperate()"];
+Main2390489 -> Parser1911543745[label="main() -> parseExpr()"];
+Main2390489 -> Printer1349935098[label="main() -> finalPrint()"];
+Num3127797 -> Standard3127797[label="value
+[0..*]"];
+Parser1911543745 -> Lexer73315052[label="lexer
+[0..1]"];
+Term3127797 -> Calculation3127797[label="calValue() -> Mul()"];
+Term3127797 -> Derivation3127797[arrowhead=none];
+Term3127797 -> Exponent3127797[arrowhead=none];
+Term3127797 -> Expression3127797[arrowhead=none];
+Term3127797 -> Num3127797[arrowhead=none];
+Term3127797 -> Standard3127797[label="value
+[0..*]"];
+Term3127797 -> Variable3127797[arrowhead=none];
+Variable3127797 -> Standard3127797[label="value
+[0..*]"];
+    
+}
+@enduml

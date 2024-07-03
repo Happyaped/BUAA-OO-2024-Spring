@@ -1,0 +1,399 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "InputThread",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1379433044 { 
+   	label=InputThread
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   InputThread1379433044[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)InputThread</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   mainRequestTable: RequestTable [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   schedule: Schedule [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ run()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1456860831 { 
+   	label=RequestTable
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   RequestTable1456860831[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)RequestTable</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   isEnd: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   requestMap: HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addRequestMap(person: Person)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ receiveResetRequest(requestTable: RequestTable)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1852442515 { 
+   	label=Strategy
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Strategy1852442515[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Strategy</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   requestTable: RequestTable [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ canDownOpenForOut(destMap: HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt;, nowFloor: int, changeFloor: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ canOpenForIn(nowFloor: int, direction: int, nowNum: int, capacity: Integer): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ canOpenForOut(destMap: HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt;, nowFloor: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ canUpOpenForOut(destMap: HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt;, nowFloor: int, changeFloor: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAdvice(nowNum: Integer, nowFloor: Integer, direction: Integer, destMap: HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt;, resetFlag: Boolean, capacity: Integer, doubleResetFlag: Boolean): Advice</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDownAdvice(nowNum: Integer, nowFloor: Integer, direction: Integer, destMap: HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt;, capacity: Integer, changeFloor: Integer): Advice</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getUpAdvice(nowNum: Integer, nowFloor: Integer, direction: Integer, destMap: HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt;, capacity: Integer, changeFloor: Integer): Advice</TD></TR>
+<TR><TD ALIGN="LEFT" >+ hasReqInOriginDirection(direction: int, nowFloor: int): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1907849355 { 
+   	label=Person
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Person1907849355[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Person</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   fromFloor: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   toFloor: int [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_30712631 { 
+   	label=UpElevator
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   UpElevator30712631[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)UpElevator</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   capacity: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   changeFloor: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   destMap: HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   direction: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   elevatorSchedule: RequestTable [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idElevator: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isInChangeFloorLock: IsInChangeFloorLock [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveTime: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nowFloor: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nowNum: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   requestTable: RequestTable [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   strategy: Strategy [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ in()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ openAndClose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ out()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ run()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_507710512 { 
+   	label=DownElevator
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   DownElevator507710512[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DownElevator</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   capacity: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   changeFloor: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   destMap: HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   direction: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   elevatorSchedule: RequestTable [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idElevator: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isInChangeFloorLock: IsInChangeFloorLock [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveTime: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nowFloor: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nowNum: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   requestTable: RequestTable [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   strategy: Strategy [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ in()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ openAndClose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ out()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ run()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_633276745 { 
+   	label=Schedule
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Schedule633276745[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Schedule</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   elevators: ArrayList&lt;Elevator&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mainRequestTable: RequestTable [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   requestTables: ArrayList&lt;RequestTable&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sum: Integer [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ doubleResetElevator(idElevator: int, resetCapacity: int, moveTime: double, changeFloor: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ resetElevator(idElevator: int, resetCapacity: int, moveTime: double)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ run()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_64503054 { 
+   	label=Elevator
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Elevator64503054[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Elevator</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   capacity: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   destMap: HashMap&lt;Integer, ArrayList&lt;Person&gt;&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   direction: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   doubleResetFlag: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   downElevator: DownElevator [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   downRequestTable: RequestTable [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idElevator: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isInChangeFloorLock: IsInChangeFloorLock [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mainRequestTable: RequestTable [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   markDouble: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveTime: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nowFloor: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   nowNum: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   requestTable: RequestTable [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resetCapacity: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resetChangeFloor: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resetFlag: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resetMoveTime: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   strategy: Strategy [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   upElevator: UpElevator [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   upRequestTable: RequestTable [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ doubleReset()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ in()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ openAndClose()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ out()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ reset()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ run()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_790133112 { 
+   	label=IsInChangeFloorLock
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   IsInChangeFloorLock790133112[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)IsInChangeFloorLock</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   isInChangeFloor: Integer [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+DownElevator507710512 -> IsInChangeFloorLock790133112[label="isInChangeFloorLock
+[0..1]"];
+DownElevator507710512 -> Person1907849355[label="destMap
+[0..*]"];
+DownElevator507710512 -> RequestTable1456860831[label="elevatorSchedule
+[0..1]"];
+DownElevator507710512 -> RequestTable1456860831[label="requestTable
+[0..1]"];
+DownElevator507710512 -> Strategy1852442515[label="strategy
+[0..1]"];
+Elevator64503054 -> DownElevator507710512[label="downElevator
+[0..1]"];
+Elevator64503054 -> IsInChangeFloorLock790133112[label="isInChangeFloorLock
+[0..1]"];
+Elevator64503054 -> Person1907849355[label="destMap
+[0..*]"];
+Elevator64503054 -> RequestTable1456860831[label="downRequestTable
+[0..1]"];
+Elevator64503054 -> RequestTable1456860831[label="mainRequestTable
+[0..1]"];
+Elevator64503054 -> RequestTable1456860831[label="requestTable
+[0..1]"];
+Elevator64503054 -> RequestTable1456860831[label="upRequestTable
+[0..1]"];
+Elevator64503054 -> Strategy1852442515[label="strategy
+[0..1]"];
+Elevator64503054 -> UpElevator30712631[label="upElevator
+[0..1]"];
+InputThread1379433044 -> RequestTable1456860831[label="mainRequestTable
+[0..1]"];
+InputThread1379433044 -> Schedule633276745[label="schedule
+[0..1]"];
+RequestTable1456860831 -> Person1907849355[label="requestMap
+[0..*]"];
+Schedule633276745 -> Elevator64503054[label="elevators
+[0..*]"];
+Schedule633276745 -> RequestTable1456860831[label="mainRequestTable
+[0..1]"];
+Schedule633276745 -> RequestTable1456860831[label="requestTables
+[0..*]"];
+Strategy1852442515 -> RequestTable1456860831[label="requestTable
+[0..1]"];
+UpElevator30712631 -> IsInChangeFloorLock790133112[label="isInChangeFloorLock
+[0..1]"];
+UpElevator30712631 -> Person1907849355[label="destMap
+[0..*]"];
+UpElevator30712631 -> RequestTable1456860831[label="elevatorSchedule
+[0..1]"];
+UpElevator30712631 -> RequestTable1456860831[label="requestTable
+[0..1]"];
+UpElevator30712631 -> Strategy1852442515[label="strategy
+[0..1]"];
+    
+}
+@enduml
